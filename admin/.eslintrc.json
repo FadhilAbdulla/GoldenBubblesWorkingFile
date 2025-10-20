@@ -48,6 +48,7 @@
     },
     // "plugins": ["react", "react-hooks"],
     "rules": {
+        "no-unused-vars": "off"
       //add customize rules here as per your project's needs
     }
 }
