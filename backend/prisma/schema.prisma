@@ -20,11 +20,73 @@ model User {
   lastName          String
   password          String
   phone             String
+  active        Boolean @default(true) 
+  email_verified Boolean @default(false)
+  phone_verified Boolean @default(false)
   passportDoc       String?
   emiratesIdDoc     String?
   proofOfAddressDoc String?
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
+  documents userDocument[]
+  BankAccount BankAccount[]
+  TradingAccount TradingAccount[]
+
+
   @@map("users")
+}
+
+model Document {
+  id                String   @id @default(cuid())
+  documentType      Int 
+  originalKey        String
+  generatedKey       String
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  userDocument userDocument[]
+}
+
+model userDocument {
+  id                String   @id @default(cuid())
+  userId  String
+  documentId String
+
+
+  user User @relation(fields: [userId], references: [id])
+  document Document @relation(fields: [documentId], references: [id])
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+}
+
+model BankAccount {
+  id                String   @id @default(cuid())
+  userId  String
+  accountNumber String
+  IBAN String
+  BankName String
+  Branch String
+
+  user User @relation(fields: [userId], references: [id])
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model TradingAccount {
+  id                String   @id @default(cuid())
+  userId  String
+  tradingAccountType Int
+  username String
+  password String
+
+
+  user User @relation(fields: [userId], references: [id])
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }

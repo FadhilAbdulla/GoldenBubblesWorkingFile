@@ -5,25 +5,25 @@ import Sidebar from "../InitialPage/Sidebar/Sidebar";
 import { pagesRoute, posRoutes, publicRoutes } from "./router.link";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
-import ThemeSettings from "../InitialPage/themeSettings";
+// import ThemeSettings from "../InitialPage/themeSettings";
 
 const AllRoutes = () => {
   const data = useSelector((state) => state.toggle_header);
-  const HeaderLayout = () => ( 
+  const HeaderLayout = () => (
     <div className={`main-wrapper ${data ? "header-collapse" : ""}`}>
-    {/* <Loader /> */}
-    <Header />
-    <Sidebar />
-    <Outlet />
-    <ThemeSettings />
-  </div>
+      {/* <Loader /> */}
+      <Header />
+      <Sidebar />
+      <Outlet />
+      {/* <ThemeSettings /> */}
+    </div>
   );
 
   const Authpages = () => (
     <div className={data ? "header-collapse" : ""}>
       <Outlet />
       {/* <Loader /> */}
-      <ThemeSettings />
+      {/* <ThemeSettings /> */}
     </div>
   );
 
@@ -32,7 +32,7 @@ const AllRoutes = () => {
       <Header />
       <Outlet />
       {/* <Loader /> */}
-      <ThemeSettings />
+      {/* <ThemeSettings /> */}
     </div>
   );
 

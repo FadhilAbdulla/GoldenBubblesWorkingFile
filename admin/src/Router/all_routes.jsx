@@ -1,5 +1,14 @@
 export const all_routes = {
-  dashboard: "/admin-dashboard",
+  dashboard: "/dashboard",
+  users: "/users",
+  withdrawRequest: "/withdraw-request",
+  depositRequests: "/deposit-request",
+  fundHistory: "/fund-history",
+  platform: "/platform",
+  mails: "/mails-list",
+  mailConfiguration: "/mail-configuration",
+  mailBroadcast: "/mail-broadcast",
+
   productlist: "/product-list",
   addproduct: "/add-product",
   salesdashboard: "/sales-dashboard",
@@ -178,7 +187,7 @@ export const all_routes = {
   blankpage: "/blank-page",
   comingsoon: "/coming-soon",
   undermaintenance: "/under-maintenance",
-  users: "/users",
+
   rolespermission: "/roles-permissions",
   permissions: "/permissions",
   deleteaccount: "/delete-account",
@@ -189,7 +198,6 @@ export const all_routes = {
   leavesemployee: "/leaves-employee",
   leavestype: "/leave-types",
   warehouses: "/warehouse",
-  coupons:"/coupons",
-  payrollList:"/payroll-list",
-
+  coupons: "/coupons",
+  payrollList: "/payroll-list",
 };

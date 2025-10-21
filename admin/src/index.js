@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
-import { base_path } from "./environment.jsx";
+// import { base_path } from "./environment.jsx";
 import "../src/style/css/feather.css";
 import "../src/style/css/line-awesome.min.css";
 import "../src/style/scss/main.scss";
@@ -21,7 +21,7 @@ if (rootElement) {
   root.render(
     <React.StrictMode>
       <Provider store={store}>
-        <BrowserRouter basename={base_path}>
+        <BrowserRouter basename={"/"}>
           <AllRoutes />
         </BrowserRouter>
       </Provider>

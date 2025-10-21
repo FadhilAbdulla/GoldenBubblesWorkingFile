@@ -11,7 +11,7 @@ export const SidebarData = [
     submenuItems: [
       {
         label: "Dashboard",
-        link: "/admin-dashboard",
+        link: "/dashboard",
         icon: <Icon.PieChart />,
         showSubRoute: false,
         submenu: false,
@@ -32,17 +32,12 @@ export const SidebarData = [
         submenuItems: [
           {
             label: "Withdrawal Requests",
-            link: "/withdrawal-requests",
+            link: "/withdraw-request",
             showSubRoute: false,
           },
           {
             label: "Deposit Requests",
-            link: "/deposit-requests",
-            showSubRoute: false,
-          },
-          {
-            label: "History",
-            link: "/history",
+            link: "/deposit-request",
             showSubRoute: false,
           },
         ],
