@@ -153,7 +153,7 @@ import QuotationList from "../feature-module/sales/quotationlist";
 import Notes from "../feature-module/Application/notes";
 import FileManager from "../feature-module/Application/filemanager";
 import Profile from "../feature-module/pages/profile";
-import Signin from "../feature-module/pages/login/signin";
+// import Signin from "../feature-module/pages/login/signin";
 import SigninTwo from "../feature-module/pages/login/signinTwo";
 import SigninThree from "../feature-module/pages/login/signinThree";
 import RegisterTwo from "../feature-module/pages/register/registerTwo";
@@ -182,6 +182,7 @@ import Users from "../views/users";
 import WithdrawRequest from "../views/withdrawRequest";
 import DepositRequest from "../views/depositRequest";
 import Dashboard from "../views/Dashboard";
+import Signin from "../views/signin";
 
 import RolesPermissions from "../feature-module/usermanagement/rolespermissions";
 import Permissions from "../feature-module/usermanagement/permissions";

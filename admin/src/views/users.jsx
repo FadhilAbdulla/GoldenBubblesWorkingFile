@@ -1,19 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import withReactContent from "sweetalert2-react-content";
-import Swal from "sweetalert2";
 import Table from "../core/pagination/datatable";
 import AddUsers from "./addusers";
 import EditUser from "./edituser";
 import { TableColumns } from "../common/tableColumns";
+import { GetRequest } from "../common/ApiFunctions";
+import ApiEndpoints from "../common/ApiEndpoints";
+import { DataSourceSearch } from "../common/SearchFunction";
+import { showSwalConfirmationAlert } from "../common/ConfirmationMessage";
 
 const Users = () => {
-  const [dataSource, setDataSource] = useState([]);
+  const [dataSource, setDataSource] = useState(null);
+  const [Search, setSearch] = useState("");
+
+  const fetchdata = async () => {
+    const response = await GetRequest(ApiEndpoints.users);
+    setDataSource(response ?? []);
+  };
+
+  useEffect(() => {
+    fetchdata();
+  }, []);
 
   const customcolumn = [
     {
       title: "Documents",
-      dataIndex: "createdon",
+      dataIndex: "documents",
     },
     {
       title: "Actions",
@@ -22,59 +34,36 @@ const Users = () => {
       render: () => (
         <div className="action-table-data">
           <div className="edit-delete-action">
-            <Link className="me-2 p-2" to="#">
-              <i
-                data-feather="eye"
-                className="feather feather-eye action-eye"
-              ></i>
-            </Link>
             <Link
               className="me-2 p-2"
               to="#"
               data-bs-toggle="modal"
               data-bs-target="#edit-units"
             >
-              <i data-feather="edit" className="feather-edit"></i>
-            </Link>
-            <Link className="confirm-text p-2" to="#">
               <i
-                data-feather="trash-2"
-                className="feather-trash-2"
-                onClick={showConfirmationAlert}
+                data-feather="check-square"
+                className="feather-check-square"
+                style={{ color: "green" }}
               ></i>
             </Link>
+            <a
+              className="confirm-text p-2"
+              onClick={() =>
+                showSwalConfirmationAlert(() => console.log("Deleted"))
+              }
+            >
+              <i
+                data-feather="x-circle"
+                className="feather-x-circle"
+                style={{ color: "red" }}
+              ></i>
+            </a>
           </div>
         </div>
       ),
     },
   ];
-  const MySwal = withReactContent(Swal);
 
-  const showConfirmationAlert = () => {
-    MySwal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      showCancelButton: true,
-      confirmButtonColor: "#00ff00",
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonColor: "#ff0000",
-      cancelButtonText: "Cancel",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        MySwal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          className: "btn btn-success",
-          confirmButtonText: "OK",
-          customClass: {
-            confirmButton: "btn btn-success",
-          },
-        });
-      } else {
-        MySwal.close();
-      }
-    });
-  };
   return (
     <div>
       <div className="page-wrapper">
@@ -97,6 +86,8 @@ const Users = () => {
                       type="text"
                       placeholder="Search"
                       className="form-control form-control-sm formsearch"
+                      value={Search}
+                      onChange={(e) => setSearch(e.target.value)}
                     />
                     <Link to className="btn btn-searchset">
                       <i data-feather="search" className="feather-search" />
@@ -107,7 +98,7 @@ const Users = () => {
               <div className="table-responsive">
                 <Table
                   columns={[...TableColumns.users, ...customcolumn]}
-                  dataSource={dataSource}
+                  dataSource={DataSourceSearch(Search, ["name"], dataSource)}
                 />
               </div>
             </div>

@@ -8,7 +8,7 @@ async function bootstrap() {
 
   // Enable CORS
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://localhost:3001', "https://thegoldenbubbles.com"],
+    origin: ['http://localhost:3000', 'http://localhost:3002', "https://thegoldenbubbles.com"],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });

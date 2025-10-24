@@ -4,15 +4,15 @@
 <path d="M66.666 399.999C66.666 547.275 186.057 666.665 333.333 666.665C406.969 666.665 473.636 636.819 521.896 588.562L333.333 399.999V133.332C186.057 133.332 66.666 252.723 66.666 399.999Z" stroke="url(#paint2_linear_431_3372)" stroke-width="66.6667" stroke-linecap="round" stroke-linejoin="round"/>
 <defs>
 <linearGradient id="paint0_linear_431_3372" x1="616.667" y1="433.332" x2="616.667" y2="598.322" gradientUnits="userSpaceOnUse">
-<stop stop-color="#DDB45C"/>
+<stop stop-color="#A2792A"/>
 <stop offset="1" stop-color="#A2792A"/>
 </linearGradient>
 <linearGradient id="paint1_linear_431_3372" x1="550.001" y1="100" x2="550.001" y2="333.333" gradientUnits="userSpaceOnUse">
-<stop stop-color="#DDB45C"/>
+<stop stop-color="#A2792A"/>
 <stop offset="1" stop-color="#A2792A"/>
 </linearGradient>
 <linearGradient id="paint2_linear_431_3372" x1="294.281" y1="133.332" x2="294.281" y2="666.665" gradientUnits="userSpaceOnUse">
-<stop stop-color="#DDB45C"/>
+<stop stop-color="#A2792A"/>
 <stop offset="1" stop-color="#A2792A"/>
 </linearGradient>
 </defs>

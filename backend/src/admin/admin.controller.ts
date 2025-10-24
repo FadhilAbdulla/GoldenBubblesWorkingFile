@@ -14,6 +14,11 @@ import { AdminService } from './admin.service';
 export class AdminController {
   constructor(private readonly adminService: AdminService) { }
 
+  @Get('dashboard')
+  getDashboardStats() {
+    return this.adminService.getDashboardStats();
+  }
+
   // Get all users
   @Get('users')
   getAllUsers() {
@@ -53,6 +58,11 @@ export class AdminController {
       message: `Serving document: ${filename}`,
       url: `/uploads/${filename}`,
     };
+  }
+
+  @Post('login')
+  adminLogin(@Body() body: { username: string; password: string }) {
+    return this.adminService.adminLogin(body.username, body.password);
   }
 
 

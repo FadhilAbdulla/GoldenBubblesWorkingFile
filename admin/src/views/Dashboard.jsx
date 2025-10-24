@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import {
   File,
@@ -12,6 +12,8 @@ import { ArrowRight } from "react-feather";
 import { all_routes } from "../Router/all_routes";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
+import { GetRequest } from "../common/ApiFunctions";
+import ApiEndpoints from "../common/ApiEndpoints";
 
 const Dashboard = () => {
   const route = all_routes;
@@ -118,6 +120,15 @@ const Dashboard = () => {
     pendingFundRequest: 5,
     pendingApproval: 2,
   };
+
+  const [dataSource, setDataSource] = useState([]);
+  const fetchData = async () => {
+    const res = await GetRequest(ApiEndpoints.dashboard);
+    setDataSource(res);
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <div>
       <div className="page-wrapper">
@@ -137,7 +148,7 @@ const Dashboard = () => {
                   <h5>
                     <CountUp
                       start={0}
-                      end={data?.overallBalance ?? 0}
+                      end={dataSource?.overallBalance ?? 0}
                       duration={3}
                       prefix="$"
                     />
@@ -161,7 +172,7 @@ const Dashboard = () => {
                     $
                     <CountUp
                       start={0}
-                      end={data?.totalMonthlyDeposit ?? 0}
+                      end={dataSource?.totalMonthlyDeposit ?? 0}
                       duration={3} // Duration in seconds
                     />
                   </h5>
@@ -184,7 +195,7 @@ const Dashboard = () => {
                     $
                     <CountUp
                       start={0}
-                      end={data?.totalMonthlyWithdrawal ?? 0}
+                      end={dataSource?.totalMonthlyWithdrawal ?? 0}
                       duration={3} // Duration in seconds
                       // decimals={1}
                     />
@@ -208,7 +219,7 @@ const Dashboard = () => {
                     $
                     <CountUp
                       start={0}
-                      end={data?.highestDepositAmount ?? 0}
+                      end={dataSource?.highestDepositAmount ?? 0}
                       duration={3} // Duration in seconds
                     />
                   </h5>
@@ -219,7 +230,7 @@ const Dashboard = () => {
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-count">
                 <div className="dash-counts">
-                  <h4>{data?.customer ?? 0}</h4>
+                  <h4>{dataSource?.customer ?? 0}</h4>
                   <h5>Customers</h5>
                 </div>
                 <div className="dash-imgs">
@@ -230,7 +241,7 @@ const Dashboard = () => {
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-count das1">
                 <div className="dash-counts">
-                  <h4>{data?.pendingApproval ?? 0}</h4>
+                  <h4>{dataSource?.pendingApproval ?? 0}</h4>
                   <h5>Pending Approval</h5>
                 </div>
                 <div className="dash-imgs">
@@ -241,7 +252,7 @@ const Dashboard = () => {
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-count das2">
                 <div className="dash-counts">
-                  <h4>{data?.pendingFundRequest ?? 0}</h4>
+                  <h4>{dataSource?.pendingFundRequest ?? 0}</h4>
                   <h5>Pending Fund Request</h5>
                 </div>
                 <div className="dash-imgs">
@@ -256,7 +267,7 @@ const Dashboard = () => {
             <div className="col-xl-3 col-sm-6 col-12 d-flex">
               <div className="dash-count das3">
                 <div className="dash-counts">
-                  <h4>{data?.pendingRegistration ?? 0}</h4>
+                  <h4>{dataSource?.pendingRegistration ?? 0}</h4>
                   <h5>Pending Registration</h5>
                 </div>
                 <div className="dash-imgs">

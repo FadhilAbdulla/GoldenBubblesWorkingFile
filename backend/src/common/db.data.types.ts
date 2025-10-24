@@ -6,3 +6,9 @@ export const DocumentType = {
     2: "Emirates ID",
     3: "Proof of Address"
 }
+export const userStatus = {
+    pending: "Pending",
+    active: "Active",
+    suspended: "Suspended"
+}
+export const filesUrlSuffix = "localhost:3000/files/";

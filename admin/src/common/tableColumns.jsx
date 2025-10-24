@@ -2,8 +2,8 @@ export const TableColumns = {
   users: [
     {
       title: "User Name",
-      dataIndex: "username",
-      sorter: (a, b) => a.username.length - b.username.length,
+      dataIndex: "name",
+      sorter: (a, b) => a.name.length - b.name.length,
     },
 
     {
@@ -19,11 +19,11 @@ export const TableColumns = {
 
     {
       title: "Registered On",
-      dataIndex: "createdon",
-      sorter: (a, b) => a.createdon.length - b.createdon.length,
+      dataIndex: "createdAt",
+      sorter: (a, b) => a.createdAt.length - b.createdAt.length,
     },
     {
-      title: "Approval",
+      title: "Status",
       dataIndex: "status",
       sorter: (a, b) => a.status.length - b.status.length,
     },

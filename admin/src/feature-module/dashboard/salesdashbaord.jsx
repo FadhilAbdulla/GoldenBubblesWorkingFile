@@ -47,7 +47,7 @@ const SalesDashbaord = () => {
         enabled: false,
       },
     },
-    colors: ["#FF9F43"],
+    colors: ["#A2792A"],
     dataLabels: {
       enabled: false,
     },
@@ -228,7 +228,11 @@ const SalesDashbaord = () => {
                 </h3>
                 <p>No of Total Sales</p>
                 <OverlayTrigger placement="top" overlay={renderRefreshTooltip}>
-                  <Link data-bs-toggle="tooltip" data-bs-placement="top"  className="feather-dashboard">
+                  <Link
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    className="feather-dashboard"
+                  >
                     <RotateCcw className="feather-16" />
                   </Link>
                 </OverlayTrigger>

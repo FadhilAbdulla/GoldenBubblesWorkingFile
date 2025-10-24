@@ -1,31 +1,54 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
+import { DocumentType, filesUrlSuffix, userStatus } from 'src/common/db.data.types';
 
 @Injectable()
 export class AdminService {
   constructor(private databaseService: DatabaseService) { }
 
   // Get all users with their document status
+  async getDashboardStats() {
+    return {
+      overallBalance: 200,
+      totalMonthlyDeposit: 300,
+      totalMonthlyWithdrawal: 400,
+      highestDepositAmount: 200,
+
+      customer: 50,
+      pendingRegistration: 10,
+      pendingFundRequest: 5,
+      pendingApproval: 2,
+    };
+  }
   async getAllUsers() {
     try {
       const users = await this.databaseService.user.findMany({
         orderBy: {
           createdAt: 'desc',
         },
+        include: {
+          documents: {
+            include: {
+              document: true
+            }
+          }
+        }
       });
 
-      // Add document status for each user
-      const usersWithStatus = users.map((user) => ({
-        ...user,
-        documentStatus: this.getDocumentStatus(user),
-        documentsUploaded: this.getUploadedDocuments(user),
+      const convertedUserData = users.map(user => ({
+        id: user.id,
+        name: user.firstName + ' ' + user.lastName,
+        phone: user.phone,
+        email: user.email,
+        createdAt: user.createdAt,
+        status: user.approved === false ? userStatus.pending : user.active ? userStatus.active : userStatus.suspended,
+        documents: user.documents.map(doc => { return { type: DocumentType[doc.document.documentType], url: `${filesUrlSuffix}/${doc.document.generatedKey}` } }),
+        // documentStatus: this.getDocumentStatus(user),
       }));
 
-      return {
-        success: true,
-        data: usersWithStatus,
-        total: users.length,
-      };
+
+
+      return convertedUserData;
     } catch (error) {
       return {
         success: false,
@@ -173,6 +196,25 @@ export class AdminService {
       return 'Partial';
     } else {
       return 'Pending';
+    }
+  }
+
+  async adminLogin(username: string, password: string) {
+    // For demonstration, using hardcoded credentials. In production, use a secure method.
+    const adminUsername = 'admin@thegoldenbubbles.com';
+    const adminPassword = 'root';
+
+    if (username === adminUsername && password === adminPassword) {
+      return {
+        success: true,
+        message: 'Login successful',
+        // In production, return a JWT or session token here
+      };
+    } else {
+      return {
+        success: false,
+        message: 'Invalid username or password',
+      };
     }
   }
 

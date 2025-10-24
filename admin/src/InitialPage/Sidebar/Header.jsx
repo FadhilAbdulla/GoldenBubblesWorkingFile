@@ -338,7 +338,7 @@ const Header = () => {
             >
               <span className="user-info">
                 <span className="user-detail">
-                  <span className="user-name">John Smilga</span>
+                  <span className="user-name">Admin</span>
                   <span className="user-role">Super Admin</span>
                 </span>
               </span>
@@ -347,14 +347,14 @@ const Header = () => {
               <div className="profilename">
                 <div className="profileset">
                   <div className="profilesets">
-                    <h6>John Smilga</h6>
+                    <h6>Admin</h6>
                     <h5>Super Admin</h5>
                   </div>
                 </div>
                 <hr className="m-0" />
-                <Link className="dropdown-item" to={route.profile}>
+                {/* <Link className="dropdown-item" to={route.profile}>
                   <User className="me-2" /> My Profile
-                </Link>
+                </Link> */}
                 <Link className="dropdown-item" to={route.generalsettings}>
                   <Settings className="me-2" />
                   Settings
