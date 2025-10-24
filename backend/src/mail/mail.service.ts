@@ -144,42 +144,6 @@ export class MailService {
   }
 
   /**
-   * Create a simple HTML template with custom styling
-   */
-  private createSimpleHtmlTemplate(
-    content: string,
-    options?: {
-      backgroundColor?: string;
-      textColor?: string;
-      fontFamily?: string;
-      fontSize?: string;
-    },
-  ): string {
-    const styles = {
-      backgroundColor: options?.backgroundColor || '#ffffff',
-      textColor: options?.textColor || '#333333',
-      fontFamily: options?.fontFamily || 'Arial, sans-serif',
-      fontSize: options?.fontSize || '14px',
-    };
-
-    return `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Email</title>
-      </head>
-      <body style="margin: 0; padding: 0; background-color: ${styles.backgroundColor};">
-        <div style="font-family: ${styles.fontFamily}; font-size: ${styles.fontSize}; line-height: 1.6; color: ${styles.textColor}; max-width: 600px; margin: 0 auto; padding: 20px;">
-          ${content}
-        </div>
-      </body>
-      </html>
-    `;
-  }
-
-  /**
    * Initialize templates by ensuring they exist in the correct location
    */
   private initializeTemplates(): void {
@@ -273,150 +237,18 @@ export class MailService {
     });
   }
 
-  /**
-   * Send document verification status email
-   */
-  async sendDocumentVerificationEmail(
+  async sendVerificationMailwithCredentials(
     email: string,
-    verificationData: DocumentVerificationEmailData,
+    firstname: string,
+    username: string,
+    password: string,
   ): Promise<boolean> {
     return this.sendMail({
       to: email,
-      subject: `Document Verification Update - ${verificationData.status}`,
-      template: 'document-verification',
-      templateData: verificationData,
+      subject: `Your Trading Account Has Been Approved – Golden Bubbles LLC`,
+      template: 'verified',
+      templateData: { firstName: firstname, username, password },
     });
   }
 
-  /**
-   * Send custom email with template
-   */
-  async sendTemplateEmail(
-    email: string,
-    subject: string,
-    templateName: string,
-    templateData: Record<string, any>,
-  ): Promise<boolean> {
-    return this.sendMail({
-      to: email,
-      subject,
-      template: templateName,
-      templateData,
-    });
-  }
-
-  /**
-   * Send plain HTML email
-   */
-  async sendHtmlEmail(
-    email: string,
-    subject: string,
-    htmlContent: string,
-    textContent?: string,
-  ): Promise<boolean> {
-    return this.sendMail({
-      to: email,
-      subject,
-      html: htmlContent,
-      text: textContent,
-    });
-  }
-
-  /**
-   * Send plain text email with simple formatting
-   * Supports: **bold**, *italic*, [color:red]text[/color], {bg:yellow}text{/bg}
-   */
-  async sendFormattedTextEmail(
-    email: string,
-    subject: string,
-    formattedText: string,
-  ): Promise<boolean> {
-    return this.sendMail({
-      to: email,
-      subject,
-      plainTextWithFormatting: formattedText,
-    });
-  }
-
-  /**
-   * Send simple styled email with custom colors and fonts
-   */
-  async sendStyledTextEmail(
-    email: string,
-    subject: string,
-    content: string,
-    styling?: {
-      backgroundColor?: string;
-      textColor?: string;
-      fontFamily?: string;
-      fontSize?: string;
-    },
-  ): Promise<boolean> {
-    const htmlContent = this.createSimpleHtmlTemplate(content, styling);
-    return this.sendMail({
-      to: email,
-      subject,
-      html: htmlContent,
-    });
-  }
-
-  /**
-   * Send notification email with predefined styling
-   */
-  async sendNotificationEmail(
-    email: string,
-    subject: string,
-    message: string,
-    type: 'success' | 'warning' | 'error' | 'info' = 'info',
-  ): Promise<boolean> {
-    const typeStyles = {
-      success: {
-        backgroundColor: '#d4edda',
-        textColor: '#155724',
-        borderColor: '#c3e6cb',
-      },
-      warning: {
-        backgroundColor: '#fff3cd',
-        textColor: '#856404',
-        borderColor: '#ffeaa7',
-      },
-      error: {
-        backgroundColor: '#f8d7da',
-        textColor: '#721c24',
-        borderColor: '#f5c6cb',
-      },
-      info: {
-        backgroundColor: '#d1ecf1',
-        textColor: '#0c5460',
-        borderColor: '#bee5eb',
-      },
-    };
-
-    const style = typeStyles[type];
-    const styledContent = `
-      <div style="border: 1px solid ${style.borderColor}; border-radius: 5px; padding: 15px; margin: 10px 0; background-color: ${style.backgroundColor}; color: ${style.textColor};">
-        <strong>${type.toUpperCase()}:</strong><br><br>
-        ${message.replace(/\n/g, '<br>')}
-      </div>
-    `;
-
-    return this.sendMail({
-      to: email,
-      subject,
-      html: this.createSimpleHtmlTemplate(styledContent),
-    });
-  }
-
-  // Legacy methods for API compatibility
-  findAll() {
-    return 'This action returns all mail';
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} mail`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} mail`;
-  }
 }

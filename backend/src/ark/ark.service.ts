@@ -29,12 +29,10 @@ export class ArkService implements OnModuleInit {
         try {
             const HeaderPart = await this.headerWithAuthPart()
             const response = await axios.post(`${this.cred.baseurl}${this.endpoints.createUser}`, { ...userData, ...CreateArkUserDefaultData }, HeaderPart);
-            console.log("new user create response:", response.data);
-            // this.databaseService.arkAuthToken.create({ data: { token: response?.data?.data?.token } })
-            // return response?.data?.data?.token;
+            return true
         } catch (error) {
             console.error("Error creating user in ARK:", error.response?.data);
-            throw new Error("Failed to create user in ARK");
+            return false
         }
     }
 

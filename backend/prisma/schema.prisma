@@ -79,8 +79,9 @@ model TradingAccount {
   id                 String @id @default(cuid())
   userId             String
   tradingAccountType Int
-  username           String
+  username           String @unique
   password           String
+  active        Boolean  @default(false)
 
   user User @relation(fields: [userId], references: [id])
 
