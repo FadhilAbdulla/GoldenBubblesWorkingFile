@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Table from "../core/pagination/datatable";
-import AddUsers from "./addusers";
-import EditUser from "./edituser";
 import { TableColumns } from "../common/tableColumns";
-import { GetRequest } from "../common/ApiFunctions";
+import { GetRequest, PostRequest } from "../common/ApiFunctions";
 import ApiEndpoints from "../common/ApiEndpoints";
 import { DataSourceSearch } from "../common/SearchFunction";
 import { showSwalConfirmationAlert } from "../common/ConfirmationMessage";
@@ -18,35 +16,52 @@ const Users = () => {
     setDataSource(response ?? []);
   };
 
+  const ApproveUser = async (userId) => {
+    setDataSource(null);
+    const res = await PostRequest(
+      ApiEndpoints.approveUser,
+      JSON.stringify({ userId })
+    );
+    // if (res.success === true) {
+    fetchdata();
+    // }
+  };
+
   useEffect(() => {
     fetchdata();
   }, []);
 
   const customcolumn = [
     {
-      title: "Documents",
-      dataIndex: "documents",
-    },
-    {
       title: "Actions",
       dataIndex: "actions",
       key: "actions",
-      render: () => (
+      render: (text, record) => (
         <div className="action-table-data">
           <div className="edit-delete-action">
-            <Link
-              className="me-2 p-2"
-              to="#"
-              data-bs-toggle="modal"
-              data-bs-target="#edit-units"
-            >
+            <a className="me-2 p-2">
               <i
-                data-feather="check-square"
-                className="feather-check-square"
-                style={{ color: "green" }}
+                data-feather="eye"
+                className="feather feather-eye action-eye"
               ></i>
-            </Link>
-            <a
+            </a>
+            {record.status !== "Active" && (
+              <a
+                className="me-2 p-2 bg-dark text-white"
+                onClick={() =>
+                  showSwalConfirmationAlert(() => ApproveUser(record.id))
+                }
+              >
+                {" "}
+                Approve{" "}
+                <i
+                  data-feather="check-square"
+                  className="feather-check-square ms-2"
+                  style={{ color: "green" }}
+                ></i>
+              </a>
+            )}
+            {/* <a
               className="confirm-text p-2"
               onClick={() =>
                 showSwalConfirmationAlert(() => console.log("Deleted"))
@@ -57,7 +72,7 @@ const Users = () => {
                 className="feather-x-circle"
                 style={{ color: "red" }}
               ></i>
-            </a>
+            </a> */}
           </div>
         </div>
       ),
@@ -106,8 +121,6 @@ const Users = () => {
           {/* /product list */}
         </div>
       </div>
-      <AddUsers />
-      <EditUser />
     </div>
   );
 };

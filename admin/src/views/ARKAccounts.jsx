@@ -1,0 +1,154 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { Sliders } from "react-feather";
+import Select from "react-select";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+import Table from "../core/pagination/datatable";
+import AddUsers from "./addusers";
+import EditUser from "./edituser";
+
+const ARKAccounts = () => {
+  const approvalstatus = [
+    { value: "All", label: "ALL" },
+    { value: "pending", label: "Pending" },
+  ];
+
+  const [dataSource, setDataSource] = useState([]);
+
+  const columns = [
+    {
+      title: "Created On",
+      dataIndex: "createdon",
+      sorter: (a, b) => a.createdon.length - b.createdon.length,
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      render: (text) => (
+        <div>
+          {text === "Active" && (
+            <span className="badge badge-linesuccess">{text}</span>
+          )}
+          {text === "Inactive" && (
+            <span className="badge badge-linedanger">{text}</span>
+          )}
+        </div>
+      ),
+      sorter: (a, b) => a.status.length - b.status.length,
+    },
+    {
+      title: "Actions",
+      dataIndex: "actions",
+      key: "actions",
+      render: () => (
+        <div className="action-table-data">
+          <div className="edit-delete-action">
+            <Link className="me-2 p-2" to="#">
+              <i
+                data-feather="eye"
+                className="feather feather-eye action-eye"
+              ></i>
+            </Link>
+            <Link
+              className="me-2 p-2"
+              to="#"
+              data-bs-toggle="modal"
+              data-bs-target="#edit-units"
+            >
+              <i data-feather="edit" className="feather-edit"></i>
+            </Link>
+            <Link className="confirm-text p-2" to="#">
+              <i
+                data-feather="trash-2"
+                className="feather-trash-2"
+                onClick={showConfirmationAlert}
+              ></i>
+            </Link>
+          </div>
+        </div>
+      ),
+    },
+  ];
+  const MySwal = withReactContent(Swal);
+
+  const showConfirmationAlert = () => {
+    MySwal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      showCancelButton: true,
+      confirmButtonColor: "#00ff00",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonColor: "#ff0000",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        MySwal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          className: "btn btn-success",
+          confirmButtonText: "OK",
+          customClass: {
+            confirmButton: "btn btn-success",
+          },
+        });
+      } else {
+        MySwal.close();
+      }
+    });
+  };
+  return (
+    <div>
+      <div className="page-wrapper">
+        <div className="content">
+          <div className="page-header">
+            <div className="add-item d-flex">
+              <div className="page-title">
+                <h4>Accounts</h4>
+                <h6>Manage Your Ark Accounts</h6>
+              </div>
+            </div>
+          </div>
+          {/* /product list */}
+          <div className="card table-list-card">
+            <div className="card-body">
+              <div className="table-top">
+                <div className="search-set">
+                  <div className="search-input">
+                    <input
+                      type="text"
+                      placeholder="Search"
+                      className="form-control form-control-sm formsearch"
+                    />
+                    <Link to className="btn btn-searchset">
+                      <i data-feather="search" className="feather-search" />
+                    </Link>
+                  </div>
+                </div>
+
+                <div className="form-sort">
+                  <Sliders className="info-img" />
+                  <Select
+                    className="img-select"
+                    classNamePrefix="react-select"
+                    options={approvalstatus}
+                    placeholder="ALL"
+                  />
+                </div>
+              </div>
+
+              <div className="table-responsive">
+                <Table columns={columns} dataSource={dataSource} />
+              </div>
+            </div>
+          </div>
+          {/* /product list */}
+        </div>
+      </div>
+      <AddUsers />
+      <EditUser />
+    </div>
+  );
+};
+
+export default ARKAccounts;

@@ -9,12 +9,12 @@ export const showSwalConfirmationAlert = (SuccessDeleteFunction) => {
     text: "You won't be able to revert this!",
     showCancelButton: true,
     confirmButtonColor: "#00ff00",
-    confirmButtonText: "Yes, delete it!",
+    confirmButtonText: "Yes",
     cancelButtonColor: "#ff0000",
     cancelButtonText: "Cancel",
   }).then((result) => {
     if (result.isConfirmed) {
-      DeleteConfirmedMessage();
+      // DeleteConfirmedMessage();
       if (typeof SuccessDeleteFunction === "function") {
         SuccessDeleteFunction();
       }

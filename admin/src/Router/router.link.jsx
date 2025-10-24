@@ -181,6 +181,8 @@ import Undermaintainence from "../feature-module/pages/undermaintainence";
 import Users from "../views/users";
 import WithdrawRequest from "../views/withdrawRequest";
 import DepositRequest from "../views/depositRequest";
+import ARKAccounts from "../views/ARKAccounts";
+import ARKMoneyTransactions from "../views/ARKMoneyTransactions";
 import Dashboard from "../views/Dashboard";
 import Signin from "../views/signin";
 
@@ -230,6 +232,20 @@ export const publicRoutes = [
     path: routes.depositRequests,
     name: "depositRequests",
     element: <DepositRequest />,
+    route: Route,
+  },
+  {
+    id: 5,
+    path: routes.arkaccounts,
+    name: "arkaccounts",
+    element: <ARKAccounts />,
+    route: Route,
+  },
+  {
+    id: 6,
+    path: routes.arkmoneytransactions,
+    name: "arkmoneytransactions",
+    element: <ARKMoneyTransactions />,
     route: Route,
   },
 ];

@@ -44,11 +44,23 @@ export const SidebarData = [
       },
       {
         label: "Platform",
-        link: "/platform",
-        icon: <Icon.HardDrive />,
+        submenu: true,
         showSubRoute: false,
-        submenu: false,
+        icon: <Icon.HardDrive />,
+        submenuItems: [
+          {
+            label: "ARK Accounts",
+            link: "/ark-accounts",
+            showSubRoute: false,
+          },
+          {
+            label: "ARK Money Transactions",
+            link: "/ark-money-transactions",
+            showSubRoute: false,
+          },
+        ],
       },
+
       {
         label: "Communication",
         submenu: true,
